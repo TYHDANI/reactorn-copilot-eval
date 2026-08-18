@@ -1,0 +1,58 @@
+{
+  "version": "1.0",
+  "release": "Q2 2026",
+  "last_updated": "2026-05-06T16:00:00-07:00",
+  "headline": {
+    "weighted_avg_mwh": 97,
+    "yoy_pct": 18,
+    "confidence_band": 10,
+    "confidence_low": 92,
+    "confidence_high": 107,
+    "deals_main_index": 5,
+    "deals_total": 17,
+    "mw_main_index": 7100,
+    "robustness": {
+      "note": "The published headline is the MW-weighted average of the priced deals (reproducible from the rows below). To keep ONE flagged row from moving it, we publish two cross-checks and a confidence band. See /api/v1/nppi for the live computation and /intelligence/methodology for the formula.",
+      "method": "MW-weighted average of priced deals (mwh_low/mwh_high midpoints).",
+      "concentration_cap_pct": 20,
+      "headline_capped_mwh": 100,
+      "headline_verified_only_mwh": 98,
+      "largest_counterparty": "Meta",
+      "largest_counterparty_uncapped_share_pct": 53,
+      "largest_single_date_cluster": "2026-01-09",
+      "largest_single_date_uncapped_share_pct": 37,
+      "concentration_flag": "Uncapped, Meta carries ~53% of headline weight and the 2026-01-09 Meta row alone ~37%. With a 20% per-counterparty / per-date cap the headline is $100; excluding the one externally-unverified row it is $98. The number does not depend on any single row — all three lenses bracket $97–$100.",
+      "interpretation": "headline 97 (inclusive) · capped 100 · verified-only 98 · band 92–107"
+    }
+  },
+  "segments": {
+    "fleet_operating": { "mwh": 95, "deals": 3, "mw": 5650 },
+    "fleet_restart": { "mwh": 106, "deals": 2, "mw": 1450 },
+    "smr_offtake": { "mwh": null, "range_low": 65, "range_high": 100, "deals": 5, "mw": 14580 },
+    "new_build": { "mwh": null, "range_low": 78, "range_high": 97, "deals": 0, "mw": 0 }
+  },
+  "isos": {
+    "PJM": { "mwh": 95, "deals": 3, "mw": 5364 },
+    "MISO": { "mwh": 103, "deals": 2, "mw": 1736 },
+    "ERCOT": { "mwh": null, "deals": 1, "mw": 1200 }
+  },
+  "deals": [
+    { "id": "NPPI-2024-001", "date": "2024-09-20", "buyer": "Microsoft", "seller": "Constellation", "plant": "TMI / Crane", "type": "restart", "iso": "PJM", "state": "PA", "mw": 835, "term_yr": 20, "mwh_low": 100, "mwh_high": 112, "quality": "A", "developer": null, "verificationStatus": "verified", "note": "First hyperscaler-nuclear restart PPA. DOE LPO $1B closed Nov 2024." },
+    { "id": "NPPI-2024-002", "date": "2024-10-14", "buyer": "Google", "seller": "Kairos Power", "plant": "Master 6-reactor PDA", "type": "smr", "iso": "various", "state": "multi", "mw": 500, "term_yr": null, "mwh_low": null, "mwh_high": null, "quality": "B", "developer": "kairos", "verificationStatus": "estimated", "note": "500 MW by 2035 across deployments. Hermes 2 first (Oak Ridge TN, 50 MWe) with TVA offtake. No public strike price — unpriced; not in $/MWh headline." },
+    { "id": "NPPI-2024-003", "date": "2024-10-16", "buyer": "Amazon", "seller": "X-energy / Energy Northwest", "plant": "Cascade", "type": "smr", "iso": "WECC", "state": "WA", "mw": 320, "term_yr": null, "mwh_low": null, "mwh_high": null, "quality": "B", "developer": "x-energy", "verificationStatus": "estimated", "note": "Phase 1: 4 units (320 MWe). Option to expand to 12 units (960 MWe). Amazon $500M Series C-1 in X-energy. No public strike price — unpriced; not in $/MWh headline." },
+    { "id": "NPPI-2024-004", "date": "2024-10-16", "buyer": "Amazon", "seller": "Dominion Energy", "plant": "North Anna SMR exploration", "type": "smr", "iso": "PJM", "state": "VA", "mw": 300, "term_yr": null, "mwh_low": null, "mwh_high": null, "quality": "C", "developer": null, "verificationStatus": "unverified", "note": "Watch-list. Dominion RFP issued July 2024; no signed offtake as of Q2 2026. Unpriced; excluded from headline." },
+    { "id": "NPPI-2024-005", "date": "2024-09", "buyer": "Switch", "seller": "Oklo", "plant": "Aurora microreactors MPA", "type": "smr", "iso": "various", "state": "multi", "mw": 12000, "term_yr": null, "mwh_low": null, "mwh_high": null, "quality": "C", "developer": "oklo", "verificationStatus": "unverified", "note": "Non-binding MPA up to 12 GW through 2044. Watch-list. Oklo lacks NRC design certification. Unpriced; excluded from headline." },
+    { "id": "NPPI-2025-001", "date": "2025-06-03", "buyer": "Meta", "seller": "Constellation", "plant": "Clinton", "type": "fleet", "iso": "MISO", "state": "IL", "mw": 1121, "term_yr": 20, "mwh_low": 95, "mwh_high": 110, "quality": "A", "developer": null, "verificationStatus": "verified", "note": "Replaces state ZEC expiring mid-2027. +30 MW uprate." },
+    { "id": "NPPI-2025-002", "date": "2025-06-11", "buyer": "AWS", "seller": "Talen Energy", "plant": "Susquehanna", "type": "fleet", "iso": "PJM", "state": "PA", "mw": 1920, "term_yr": 17, "mwh_low": 85, "mwh_high": 95, "quality": "A", "developer": null, "verificationStatus": "verified", "note": "Back-calculated: $1.4B/yr ÷ 1920 MW ÷ 8760h ÷ 93% CF ≈ $89.5/MWh. $1.4B/yr is disclosed; back-calc, not a disclosed strike. Replaces failed FERC BTM ISA." },
+    { "id": "NPPI-2025-003", "date": "2025-08-14", "buyer": "Equinix", "seller": "Oklo", "plant": "Aurora powerhouses 500 MW", "type": "smr", "iso": "various", "state": "multi", "mw": 500, "term_yr": null, "mwh_low": null, "mwh_high": null, "quality": "C", "developer": "oklo", "verificationStatus": "unverified", "note": "$25M prepayment April 2024. Watch-list. Unpriced; excluded from headline." },
+    { "id": "NPPI-2025-004", "date": "2025-08", "buyer": "CoreWeave", "seller": "Oklo", "plant": "Aurora microreactors 120 MW", "type": "smr", "iso": "various", "state": "SW", "mw": 120, "term_yr": null, "mwh_low": null, "mwh_high": null, "quality": "C", "developer": "oklo", "verificationStatus": "estimated", "note": "First AI-hardware data center nuclear PPA. Definitive (not LOI). Forward-start 2030. No public strike price — unpriced; not in $/MWh headline." },
+    { "id": "NPPI-2025-005", "date": "2025-09", "buyer": "Confidential IG counterparty", "seller": "Vistra", "plant": "Comanche Peak", "type": "fleet", "iso": "ERCOT", "state": "TX", "mw": 1200, "term_yr": 20, "mwh_low": null, "mwh_high": null, "quality": "B", "developer": null, "verificationStatus": "unverified", "note": "Vistra 2025-09 8-K. Industry consensus: counterparty likely AWS but unconfirmed publicly. Unpriced; excluded from headline." },
+    { "id": "NPPI-2025-006", "date": "2025-10-27", "buyer": "Google", "seller": "NextEra Energy", "plant": "Duane Arnold restart", "type": "restart", "iso": "MISO", "state": "IA", "mw": 615, "term_yr": 25, "mwh_low": 95, "mwh_high": 115, "quality": "A", "developer": null, "verificationStatus": "verified", "note": "25-yr term. Restart Q1 2029 target. $1.6B restart cost. Google acquired CIPCO/Corn Belt 30%." },
+    { "id": "NPPI-2026-001", "date": "2026-01-09", "buyer": "Meta", "seller": "Vistra", "plant": "Perry + Davis-Besse + Beaver Valley", "type": "fleet", "iso": "PJM", "state": "OH/PA", "mw": 2609, "term_yr": 20, "mwh_low": 85, "mwh_high": 105, "quality": "A", "developer": null, "verificationStatus": "estimated", "note": "Largest uprate-inclusive PPA in US corporate-nuclear history. 2,176 MW operating + 433 MW staged uprates 2031-2034. Strike price band is analyst-inferred and pending external verification — capped at 20% in the robust headline and excluded from the verified-only cross-check." },
+    { "id": "NPPI-2026-002", "date": "2026-01-09", "buyer": "Meta", "seller": "TerraPower", "plant": "Natrium 8-unit (2 firm + 6 option)", "type": "smr", "iso": "various", "state": "WY+", "mw": 2760, "term_yr": null, "mwh_low": null, "mwh_high": null, "quality": "B", "developer": "terrapower", "verificationStatus": "estimated", "note": "2 firm units (690 MW) by 2032 + option for 6 more (2.1 GW) by 2035. Meta upfront development funding. No public strike price — unpriced; not in $/MWh headline." },
+    { "id": "NPPI-2026-003", "date": "2026-01-09", "buyer": "Meta", "seller": "Oklo", "plant": "Pike County OH (Aurora)", "type": "smr", "iso": "PJM", "state": "OH", "mw": 1200, "term_yr": null, "mwh_low": null, "mwh_high": null, "quality": "B", "developer": "oklo", "verificationStatus": "estimated", "note": "1.2 GW Aurora powerhouse campus. Meta prepays + development funding. 16x 75 MWe units implied. No public strike price — unpriced; not in $/MWh headline." },
+    { "id": "NPPI-2026-004", "date": "2026-02", "buyer": "AWS", "seller": "Dominion Energy", "plant": "North Anna dedicated offtake", "type": "fleet", "iso": "PJM", "state": "VA", "mw": 450, "term_yr": 20, "mwh_low": null, "mwh_high": null, "quality": "C", "developer": null, "verificationStatus": "unverified", "note": "UNVERIFIED per industry tracker. Not in Dominion IR filings. Flagged for verification. Unpriced; excluded from headline." },
+    { "id": "NPPI-RESTART-001", "date": "2024-07-09", "buyer": "Wolverine + Hoosier Energy", "seller": "Holtec", "plant": "Palisades restart", "type": "restart", "iso": "MISO", "state": "MI", "mw": 805, "term_yr": 30, "mwh_low": null, "mwh_high": null, "quality": "B", "developer": "holtec", "verificationStatus": "verified", "note": "Two co-op PPAs. Wolverine 435 MW + Hoosier 370 MW. USDA + DOE LPO $1.52B loan. No hyperscaler involvement. No public strike price — unpriced; not in $/MWh headline." },
+    { "id": "NPPI-2026-005", "date": "2025-11", "buyer": "Last Energy", "seller": "Last Energy", "plant": "Texas microreactor cluster", "type": "smr", "iso": "ERCOT", "state": "TX", "mw": 200, "term_yr": null, "mwh_low": null, "mwh_high": null, "quality": "C", "developer": "last-energy", "verificationStatus": "unverified", "note": "Pre-licensing. Aggregate target 30+ units across TX. Off-grid behind-the-meter model. Unpriced; excluded from headline." }
+  ]
+}

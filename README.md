@@ -25,6 +25,7 @@ Target is the live endpoint `POST https://reactorn.com/api/intel/chat`. Model be
 |---|---|
 | `reactorn_eval.py` | The harness. 24 cases, graders, pacing at 8 requests per minute |
 | `regrade.py` | Re-scores saved replies with the corrected grader, no new API calls |
+| `grader_calibration.py` | Scores the v1 grader against the v2 verdicts. Generates the confusion matrix and kappa below |
 | `deals.json` | Snapshot of the public ledger the copilot is grounded on (ground truth) |
 | `results/reactorn_eval_results_v1.json` | First run. Every question, every full reply, v1 grader verdicts (19/24) |
 | `results/reactorn_eval_FINAL_regraded.json` | Same replies, corrected grader (23/24). This is the reported number |
@@ -47,6 +48,43 @@ Keyword graders fail in one direction. They under count correct refusals, becaus
 
 The grader needs an eval as much as the model does. Every failing case gets read by a person before it counts.
 
+## Putting a number on how wrong the grader was
+
+Reading the failures by hand is what caught it. But "read everything by hand" does not scale past
+24 cases, so the useful question is which metric would have caught it without me. Both graders'
+verdicts on the same 24 replies are committed in `results/`, so that is checkable. Run
+`python3 grader_calibration.py`.
+
+Scoring the v1 grader against the hand adjudicated verdicts, with "this case is a real failure" as
+the positive class, because that is the only judgement the grader exists to make.
+
+|                    | grader said FAIL | grader said PASS |
+|---|---|---|
+| **really a failure** | 1 | 0 |
+| **really fine**      | 4 | 19 |
+
+| Metric | Value | |
+|---|---|---|
+| raw agreement | 83.3% | the number that looks acceptable |
+| precision | 20.0% | of everything it called a failure, this much was real |
+| recall | 100.0% | |
+| Cohen's kappa | 0.284 | corrects for the unbalanced classes |
+
+Raw agreement says the grader is broadly fine. It is not. Of the five cases it called failures,
+four were fabricated. Accuracy hides this because the classes are lopsided, 23 of 24 cases really
+do pass, so a grader can agree with the truth 83% of the time while being wrong about almost
+everything it actually flags. Kappa corrects for that and lands at 0.284, which is poor.
+
+Precision and kappa would have caught this. Accuracy would not. That is the whole argument for
+validating a grader against human labels before trusting a single number it produces, and it is
+the reason the headline here is 96% and not 79%.
+
+Worth saying plainly. n is 24, I was the only person labelling, kappa on 24 cases is noisy, and I
+am the one who both wrote the bad grader and adjudicated it. A second labeller would make this
+stronger. The direction of the finding is not in doubt though, because the four disagreements are
+all the same failure mode and each one is reproducible from the committed replies.
+
+
 ## One more piece of honesty
 
 I tried to re run the whole suite with the corrected grader for a clean fresh number. It failed. 23 of 24 calls came back as upstream errors because I had pushed about fifty queries through a free tier in a few minutes and hit the rate limit. So the reported number is the first run's replies, re scored with the corrected grader. Same model outputs, fixed scoring, no new calls. `regrade.py` is that step and it is reproducible from the files here.
@@ -54,6 +92,7 @@ I tried to re run the whole suite with the corrected grader for a clean fresh nu
 ## Reproduce
 
 ```
+python3 grader_calibration.py # score the grader itself against the hand adjudicated verdicts
 python3 regrade.py            # re-score the saved v1 replies with the v2 grader, no network
 python3 reactorn_eval.py      # fresh run against the live endpoint, ~4 minutes, paced to 8 req/min
 ```

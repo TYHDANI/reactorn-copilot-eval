@@ -79,6 +79,12 @@ Precision and kappa would have caught this. Accuracy would not. That is the whol
 validating a grader against human labels before trusting a single number it produces, and it is
 the reason the headline here is 96% and not 79%.
 
+I took that further in a separate repo. [**grader-calibration**](https://github.com/TYHDANI/grader-calibration)
+scores six graders against these same 24 cases, three of them deliberately broken. The result worth
+knowing: a control grader that is one line returning `false`, catching nothing at all, posts
+**95.8% accuracy**, which is higher than either real grader here. It also shows that the corrected
+grader below is still not good, it just fails differently.
+
 Worth saying plainly. n is 24, I was the only person labelling, kappa on 24 cases is noisy, and I
 am the one who both wrote the bad grader and adjudicated it. A second labeller would make this
 stronger. The direction of the finding is not in doubt though, because the four disagreements are
